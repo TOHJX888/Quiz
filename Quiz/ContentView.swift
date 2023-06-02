@@ -24,51 +24,64 @@ struct ContentView: View {
         VStack{
             Text(questions[index].q)
             HStack{
-                Button{
-                    isCorrect = false
-                    showAlert = true
-                } label: {
-                    Text(questions[index].o1)
-                        .padding()
-                        .background(Color.white)
-                        .foregroundColor(.blue)
-                }
-                Button{
-                    isCorrect = true
-                    showAlert = true
-                    score += 1
-                } label: {
-                    Text(questions[index].o2)
-                        .padding()
-                        .background(Color.white)
-                        .foregroundColor(.blue)
-                }
+                    Button{
+                        isCorrect = false
+                        showAlert = true
+                    } label: {
+                        Image(systemName: "triangle.fill")
+                        Text(questions[index].o1)
+                            
+                    }
+                    .foregroundColor(.black)
+                    .frame(width: 150, height: 70)
+                    .background(.red)
+                    .cornerRadius(10)
                 
-            } .multilineTextAlignment(.center)
-            HStack{
-                Button{
-                    isCorrect = false
-                    showAlert = true
-                } label: {
-                    Text(questions[index].o3)
-                        .padding()
-                        .background(Color.white)
-                        .foregroundColor(.blue)
-                }
-                Button{
-                    isCorrect = false
-                    showAlert = true
-                } label: {
-                    Text(questions[index].o4)
-                        .padding()
-                        .background(Color.white)
-                        .foregroundColor(.blue)
-                }
+                    Button{
+                        isCorrect = true
+                        showAlert = true
+                        score += 1
+                    } label: {
+                        Image(systemName: "suit.diamond.fill")
+                        Text(questions[index].o2)
+                        
+                    }
+                    .foregroundColor(.black)
+                    .frame(width: 150, height: 70)
+                    .background(.blue)
+                    .cornerRadius(10)
                 
-            } .multilineTextAlignment(.center)
+            }
+                HStack{
+                    Button{
+                        isCorrect = false
+                        showAlert = true
+                    } label: {
+                        Image(systemName: "circle.fill")
+                        Text(questions[index].o3)
+                            
+                    }
+                    .foregroundColor(.black)
+                    .frame(width: 150, height: 70)
+                    .background(.yellow)
+                    .cornerRadius(10)
+                    
+                        Button{
+                            isCorrect = false
+                            showAlert = true
+                        } label: {
+                            Image(systemName: "square.fill")
+                            Text(questions[index].o4)
+                               
+                        }
+                        .foregroundColor(.black)
+                        .frame(width: 150, height: 70)
+                        .background(.green)
+                        .cornerRadius(10)
+                    
+            }
             
-        }
-            .alert(isCorrect ? "Correct!!!" : "Wrong!", isPresented: $showAlert) {
+        }  .alert(isCorrect ? "Correct!!!" : "Wrong!", isPresented: $showAlert) {
                 Button ("Next Question"){
                   index += 1
                     if index == questions.count {
@@ -78,9 +91,14 @@ struct ContentView: View {
                 }
             }
             .sheet(isPresented: $showSheet) {
-                Text("Your score is \(score)/\(questions.count)")
-                if score <= 1 {
-                    Text("Wow, you are bad at this!")
+               Text("Your score is \(score)/\(questions.count)")
+               if score <= 1 {
+                   Image("Happy")
+                   Text("Wow, you are bad at this!")
+                }
+               if score >= 2{
+                   Image("Sad")
+                   Text("Wow, you are great at this!")
                 }
         }
     }
